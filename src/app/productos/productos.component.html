@@ -1,0 +1,19 @@
+<div>
+  <h2>Elige tu Comida</h2>
+  <ul>
+    <li *ngFor="let producto of productos">
+      <img *ngIf="producto.imageUrl" [src]="producto.imageUrl" alt="{{producto.name || 'Producto sin nombre'}}" width="100" (error)="onImgError($event)">
+      <div>
+        <h3>{{ producto.name || 'Sin nombre' }}</h3>
+        <p>{{ producto.description || 'Sin descripción' }}</p>
+        <p>Precio: ${{ producto.price || 0 }}</p>
+        <p *ngIf="producto.categoryId">Categoría ID: {{ producto.categoryId }}</p>
+        <p *ngIf="!producto.isAvailable">No disponible</p>
+        <p>Fecha creación: {{ producto.createdAt | date:'medium' }}</p>
+        <button (click)="seleccionarProducto(producto)" [disabled]="!producto.name">Seleccionar</button>
+      </div>
+    </li>
+  </ul>
+  <p *ngIf="productos.length === 0 && !errorMessage">No hay productos disponibles.</p>
+  <p *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</p>
+</div>
