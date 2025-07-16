@@ -1,19 +1,16 @@
-<div>
-  <h2>Elige tu Comida</h2>
-  <ul>
-    <li *ngFor="let producto of productos">
-      <img *ngIf="producto.imageUrl" [src]="producto.imageUrl" alt="{{producto.name || 'Producto sin nombre'}}" width="100" (error)="onImgError($event)">
-      <div>
+<!-- Template temporal para evitar errores y depurar -->
+<div class="productos-container">
+  <h2>Lista de Productos</h2>
+  <div class="productos-list">
+    <div *ngFor="let producto of productos" class="producto-item">
+      <img [src]="producto.imageUrl || 'https://via.placeholder.com/150'" alt="{{producto.name || 'Producto sin nombre'}}" (error)="onImgError($event)" width="100">
+      <div class="producto-details">
         <h3>{{ producto.name || 'Sin nombre' }}</h3>
-        <p>{{ producto.description || 'Sin descripción' }}</p>
-        <p>Precio: ${{ producto.price || 0 }}</p>
-        <p *ngIf="producto.categoryId">Categoría ID: {{ producto.categoryId }}</p>
-        <p *ngIf="!producto.isAvailable">No disponible</p>
-        <p>Fecha creación: {{ producto.createdAt | date:'medium' }}</p>
-        <button (click)="seleccionarProducto(producto)" [disabled]="!producto.name">Seleccionar</button>
+        <p>${{ producto.price || 0 }}</p>
+        <p *ngIf="producto.categoria">{{ producto.categoria.name }}</p>
+        <button (click)="seleccionarProducto(producto)" [disabled]="!producto.isAvailable">Seleccionar</button>
       </div>
-    </li>
-  </ul>
-  <p *ngIf="productos.length === 0 && !errorMessage">No hay productos disponibles.</p>
+    </div>
+  </div>
   <p *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</p>
 </div>

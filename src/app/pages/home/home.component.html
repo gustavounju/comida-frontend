@@ -1,0 +1,37 @@
+<div class="home-container">
+  <header class="header">
+    <h1 class="title">Tu Comida Online</h1>
+    <p class="subtitle">Explora y disfruta de nuestros platos</p>
+    <button mat-button class="explore-button" routerLink="/shop">Ir a la tienda</button>
+  </header>
+
+  <section class="products-showcase">
+    <!-- Sección de filtros con checkboxes reemplazando el título -->
+    <div class="filter-section">
+      <div class="category-filters">
+        <mat-checkbox *ngFor="let category of categories" [value]="category" (change)="filterByCategories($event)">
+          {{ category }}
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="products-container">
+      <div class="products-list">
+        <mat-card *ngFor="let producto of filteredProductos" class="product-item">
+          <mat-card-content class="product-card-content-wrapper">
+            <img class="product-thumbnail-image" [src]="producto.imageUrl || 'https://via.placeholder.com/150'" alt="{{producto.name || 'Producto sin nombre'}}" (error)="onImgError($event)">
+
+            <div class="product-details-text">
+              <h3 class="product-name">{{ producto.name || 'Sin nombre' }}</h3>
+              <p class="product-price">${{ producto.price || 0 }}</p>
+              <p class="product-category">{{ producto.categoria?.name || 'Sin categoría' }}</p>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>© 2025 Tu Comida Online. Todos los derechos reservados.</p>
+  </footer>
+</div>

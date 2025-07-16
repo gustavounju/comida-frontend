@@ -1,0 +1,14 @@
+<div class="shop-container">
+  <h2>Catálogo de Productos</h2>
+  <div class="shop-list">
+    <mat-card *ngFor="let producto of productos" class="product-item">
+      <img mat-card-image [src]="producto.imageUrl || 'https://via.placeholder.com/150'" alt="{{producto.name || 'Producto sin nombre'}}" (error)="onImgError($event)">
+      <mat-card-content>
+        <h3 class="product-name">{{ producto.name || 'Sin nombre' }}</h3>
+        <p class="product-price">${{ producto.price || 0 }}</p>
+        <p class="product-category">{{ producto.categoria?.name || 'Sin categoría' }}</p>
+        <button mat-button (click)="seleccionarProducto(producto)" [disabled]="!producto.isAvailable">Seleccionar</button>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <p *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</p>

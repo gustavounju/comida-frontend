@@ -1,45 +1,54 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { ApiService, Producto } from '../api.service'; // Mantengo Producto
+import { ApiService, Producto } from '../api.service';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-productos',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './productos.component.html',
   styleUrls: ['./productos.component.css']
 })
 export class ProductosComponent implements OnInit {
-  productos: Producto[] = []; // Mantengo productos y Producto
+  productos: Producto[] = [];
   errorMessage: string | null = null;
 
-  constructor(private apiService: ApiService, private cdr: ChangeDetectorRef) {}
+  constructor(private apiService: ApiService, private cdr: ChangeDetectorRef) {
+    console.log('[DEBUG] ProductosComponent - Constructor ejecutado');
+  }
 
   ngOnInit() {
+    console.log('[DEBUG] ProductosComponent - ngOnInit ejecutado');
     this.apiService.getProductos().subscribe({
       next: (data) => {
+        console.log('[DEBUG] ProductosComponent - Datos recibidos del API');
         this.productos = data.map(p => ({
           ...p,
-          imageUrl: `http://localhost:3000${p.imageUrl}` // Usa imageUrl de tu modelo
+          imageUrl: `http://localhost:3000${p.imageUrl}`
         }));
-        console.log('Productos asignados con imágenes:', this.productos.map(p => ({ ...p, imageUrl: p.imageUrl })));
-        this.cdr.detectChanges(); // Asegura la renderización
+        console.log('Productos asignados en ProductosComponent:', this.productos);
+        this.cdr.detectChanges();
       },
       error: (err) => {
+        console.log('[DEBUG] ProductosComponent - Error al cargar datos:', err.message);
         this.errorMessage = `Error al cargar productos: ${err.message}`;
         console.error('Error:', err);
-        this.cdr.detectChanges(); // Asegura la renderización en caso de error
+        this.cdr.detectChanges();
       }
     });
   }
 
-  seleccionarProducto(producto: Producto) {
-    console.log('Producto seleccionado:', producto.name);
+  // Método temporal para evitar el error de 'onImgError'
+  onImgError(event: Event) {
+    console.error('Error al cargar la imagen en ProductosComponent:', (event.target as HTMLImageElement).src);
+    (event.target as HTMLImageElement).src = 'https://via.placeholder.com/150';
+    (event.target as HTMLImageElement).onerror = null;
   }
 
-  onImgError(event: Event) {
-    console.error('Error al cargar la imagen:', (event.target as HTMLImageElement).src);
-    (event.target as HTMLImageElement).src = 'https://via.placeholder.com/100'; // Imagen por defecto
-    (event.target as HTMLImageElement).onerror = null; // Evita bucles infinitos
+  // Método temporal para evitar el error de 'seleccionarProducto'
+  seleccionarProducto(producto: Producto) {
+    console.log('[DEBUG] ProductosComponent - Producto seleccionado:', producto);
+    // Lógica vacía por ahora para evitar el error
   }
 }

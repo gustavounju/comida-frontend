@@ -1,0 +1,276 @@
+/* Contenedor principal de la página */
+.home-container {
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #f9f9f9;
+  color: #333;
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Sección del encabezado/banner */
+.header {
+  text-align: center;
+  padding: 40px 0;
+  background-color: #ffffff;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 1200px; /* Se mantiene */
+}
+
+.title {
+  font-size: 2.5em;
+  color: #1a252f;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 1.2em;
+  color: #6b7280;
+}
+
+.explore-button {
+  margin-top: 10px;
+}
+
+/* Contenedor para la sección de productos (filtros + lista de productos) */
+.products-showcase {
+  width: 100%;
+  max-width: 1200px; /* Se mantiene, ajustaremos el ancho del product-item */
+  padding: 20px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.section-title {
+  font-size: 1.8em;
+  color: #1a252f;
+  margin-bottom: 20px;
+  text-align: center;
+  width: 100%;
+  display: none;
+}
+
+/* Sección para los filtros */
+.filter-section {
+  flex: 0 0 auto;
+  margin-right: 20px;
+}
+
+.category-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Contenedor de la lista de productos */
+.products-container {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  /* El max-width aquí podría ser clave si tienes un filtro-section */
+  /* Si los filtros ocupan espacio, el contenedor de productos se encogerá */
+  /* Para 4 columnas, el .products-container necesita tener al menos 1200px - el ancho de los filtros */
+  /* O puedes simplemente confiar en el flex-wrap de .products-list */
+}
+
+.products-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding-bottom: 10px;
+  width: 100%;
+  justify-content: center;
+}
+
+/* Estilos para cada tarjeta de producto individual */
+.product-item {
+  /* *** CAMBIO CLAVE AQUÍ: Ancho de la tarjeta ajustado para 4 por línea en 1200px *** */
+  width: 280px; /* (1200px - 3*15px (gaps)) / 4 = 1155px / 4 = 288.75px. Usamos 280px para dejar un poco de margen. */
+  height: 150px; /* Altura de la tarjeta se mantiene */
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.5s ease, box-shadow 0.5s ease, background-color 0.5s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-item:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  background-color: #fff3f0;
+}
+
+/* Contenedor principal del contenido de la tarjeta */
+.product-card-content-wrapper {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Estilos para la imagen pequeña (thumbnail) */
+.product-thumbnail-image {
+  width: 100px; /* Se mantiene */
+  height: 100px; /* Se mantiene */
+  flex-shrink: 0;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+/* Contenedor para el texto de los detalles del producto */
+.product-details-text {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.product-name {
+  font-size: 1.1em;
+  color: #1a252f;
+  margin: 0 0 5px 0;
+  font-weight: 500;
+  white-space: normal;
+  line-height: 1.3em;
+  max-height: 2.6em;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.product-price {
+  font-size: 1em;
+  color: #f97316;
+  margin: 5px 0;
+  font-weight: 600;
+}
+
+.product-category {
+  font-size: 0.9em;
+  color: #6b7280;
+  margin: 5px 0 0 0;
+  white-space: normal;
+  line-height: 1.2em;
+  max-height: 2.4em;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* Pie de página */
+.footer {
+  margin-top: auto;
+  padding: 10px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 0.9em;
+  width: 100%;
+}
+
+/* --- Diseño Responsivo (Media Queries) --- */
+
+/* Pantallas de hasta 1024px (ej. laptops pequeñas, tablets en horizontal) */
+@media (max-width: 1024px) {
+  .product-item {
+    /* Ajustamos para que quepan 3 por línea aquí */
+    /* (1024px - 2*15px (gaps)) / 3 = (1024 - 30) / 3 = 994 / 3 = 331.33px */
+    width: 320px; /* Un poco menos para tener margen */
+    height: 150px;
+  }
+  .product-thumbnail-image {
+    width: 90px;
+    height: 90px;
+  }
+  .products-showcase {
+    flex-direction: row;
+    justify-content: center;
+  }
+  .products-list {
+    justify-content: center;
+  }
+  .filter-section {
+    margin-right: 0;
+    margin-bottom: 20px;
+    width: 100%; /* Si los filtros se apilan, que ocupen el 100% */
+    text-align: center;
+  }
+  .category-filters {
+    flex-direction: row; /* Los filtros pueden seguir en fila */
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+/* Pantallas de hasta 768px (ej. tablets en vertical) */
+@media (max-width: 768px) {
+  .product-item {
+    /* Ajustamos para que quepan 2 por línea */
+    /* (768px - 1*15px (gap)) / 2 = 753 / 2 = 376.5px */
+    width: 350px; /* Un poco menos para tener margen */
+    height: 160px; /* Podría necesitar un poco más de altura */
+  }
+  .product-thumbnail-image {
+    width: 80px;
+    height: 80px;
+  }
+  .products-showcase {
+    flex-direction: column; /* Apila la sección de filtros y productos */
+    align-items: center;
+  }
+  .products-list {
+    justify-content: center;
+  }
+  .filter-section {
+    order: -1; /* Mueve la sección de filtros arriba de los productos */
+  }
+}
+
+/* Pantallas de hasta 480px (ej. smartphones) */
+@media (max-width: 480px) {
+  .product-item {
+    width: 100%; /* Una tarjeta por fila */
+    max-width: 350px; /* Limita el ancho máximo para evitar que se estire demasiado */
+    height: 180px; /* Ajusta la altura si el contenido o la imagen lo necesitan */
+  }
+  .product-thumbnail-image {
+    width: 110px;
+    height: 110px;
+  }
+  .products-showcase {
+    flex-direction: column;
+    align-items: center;
+  }
+  .products-list {
+    flex-direction: column;
+    align-items: center;
+  }
+  .filter-section {
+    margin-right: 0;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  .category-filters {
+    flex-direction: column; /* Los filtros se apilan también */
+    align-items: center;
+  }
+}
